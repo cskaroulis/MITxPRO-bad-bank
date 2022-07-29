@@ -19,7 +19,6 @@ function Spa() {
         <Route path="/deposit/" component={Deposit} />
         <Route path="/withdraw/" component={Withdraw} />
         <Route path="/alldata/" component={AllData} />
-        <Route path="/balance/" component={Balance} />
       </UserContext.Provider>
     </HashRouter>
   );
