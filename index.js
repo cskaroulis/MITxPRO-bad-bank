@@ -1,7 +1,7 @@
 function Spa() {
   return (
     <HashRouter>
-      <NavBar />
+      <NavBar location={"hello"} />
       <UserContext.Provider
         value={{
           users: [
@@ -9,7 +9,7 @@ function Spa() {
               name: "abel",
               email: "abel@mit.edu",
               password: "secret",
-              balance: 100,
+              balance: 100.25,
             },
           ],
         }}

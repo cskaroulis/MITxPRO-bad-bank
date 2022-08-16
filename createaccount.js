@@ -4,6 +4,7 @@ function CreateAccount() {
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [formCompleted, setFormCompleted] = React.useState(false);
   const ctx = React.useContext(UserContext);
 
   function validate(field, label) {
@@ -28,54 +29,66 @@ function CreateAccount() {
     setName("");
     setEmail("");
     setPassword("");
+    setFormCompleted(false);
     setShow(true);
+  }
+
+  function inspectFormStatus() {
+    setFormCompleted(name && email && password);
   }
 
   return (
     <Card
-      bgcolor="primary"
+      bgcolor=""
       header="Create Account"
       status={status}
       body={
         show ? (
           <>
-            Name
-            <br />
+            <div className="card-label">Name</div>
             <input
               type="input"
               className="form-control"
               id="name"
               placeholder="Enter name"
               value={name}
-              onChange={(e) => setName(e.currentTarget.value)}
+              onChange={(e) => {
+                setName(e.currentTarget.value);
+                inspectFormStatus();
+              }}
+              onBlur={(e) => inspectFormStatus()}
             />
-            <br />
-            Email address
-            <br />
+            <div className="card-label">Email address</div>
             <input
               type="input"
               className="form-control"
               id="email"
               placeholder="Enter email"
               value={email}
-              onChange={(e) => setEmail(e.currentTarget.value)}
+              onChange={(e) => {
+                setEmail(e.currentTarget.value);
+                inspectFormStatus();
+              }}
+              onBlur={(e) => inspectFormStatus()}
             />
-            <br />
-            Password
-            <br />
+            <div className="card-label">Password</div>
             <input
               type="password"
               className="form-control"
               id="password"
               placeholder="Enter password"
               value={password}
-              onChange={(e) => setPassword(e.currentTarget.value)}
+              onChange={(e) => {
+                setPassword(e.currentTarget.value);
+                inspectFormStatus();
+              }}
+              onBlur={(e) => inspectFormStatus()}
             />
-            <br />
             <button
               type="submit"
-              className="btn btn-light"
+              className="btn btn-primary"
               onClick={handleCreate}
+              disabled={!formCompleted}
             >
               Create Account
             </button>
@@ -83,7 +96,11 @@ function CreateAccount() {
         ) : (
           <>
             <h5>Success</h5>
-            <button type="submit" className="btn btn-light" onClick={clearForm}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              onClick={clearForm}
+            >
               Add another account
             </button>
           </>

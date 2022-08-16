@@ -1,9 +1,12 @@
-function NavBar() {
+function NavBar({ location }) {
   const [activePage, setActivePage] = React.useState();
 
   const applyActiveClass = (pageId) => {
     return activePage === pageId ? "my-active" : "";
   };
+
+  console.log("location", location);
+
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-custom">

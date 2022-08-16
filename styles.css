@@ -1,5 +1,65 @@
+:root {
+  --border-color: #007bff;
+  --white-space-px: 20px;
+}
+
 .my-active {
   border-radius: 10px;
   color: white !important;
-  background-color:#007bff;
+  background-color: var(--border-color);
 }
+
+.navbar {
+  border: 1px solid var(--border-color);
+}
+
+.navbar-nav {
+  margin-left: auto;  
+}
+
+.card {
+  width: 18rem;
+  border: 1px solid var(--border-color);
+  margin: var(--white-space-px);
+}
+
+.card-header {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.card-label {
+  margin-top: var(--white-space-px);
+  font-weight: bold;
+}
+.card-label:first-of-type {
+  margin-top: 0;
+}
+
+
+.number-input {
+  width: 15rem;
+  text-align: right;
+}
+  
+.bank-page {
+  padding: 0.5rem 1rem;
+}
+
+.key-value-row {
+  margin-bottom: 10px;
+}
+
+.atm-controls {
+  margin-top: var(--white-space-px);
+}
+
+.btn, button {
+  margin: 0 auto;
+  margin-top: var(--white-space-px);
+  display: block;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button, 
+input::-webkit-inner-spin-button { margin-left: 10px; } 
