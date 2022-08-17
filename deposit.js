@@ -1,49 +1,57 @@
 function Deposit() {
   const ctx = React.useContext(UserContext);
+  // for now, assume we are working on the first user's account
   const user = ctx.users[0];
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = React.useState(EMPTY_STATUS);
   const [balance, setBalance] = React.useState(user.balance);
   const [validTransaction, setValidTransaction] = React.useState(false);
 
-  const validate = (field, label) => {
-    if (!field) {
-      setStatus("Error: " + label);
-      setTimeout(() => setStatus(""), 3000);
-      return false;
-    }
+  const isDepositValid = (amount) => {
+    return amount > 0;
+  };
+
+  const resetForm = () => {
+    setAmount("");
+    setValidTransaction(false);
+  };
+
+  const updateBalance = (amount) => {
+    user.balance = user.balance + amount;
+    setBalance(user.balance);
+  };
+
+  const handleSuccess = (amount) => {
+    updateBalance(amount);
+    flashStatus("success", "Success: Deposited $ " + amount, setStatus);
+    resetForm();
     return true;
   };
 
-  const getAmount = () => {
-    return document.getElementById("number-input").value;
-  };
-
-  const setAmount = (amount) => {
-    document.getElementById("number-input").value = amount;
-  };
-
-  const resetAmount = () => {
-    setAmount(0);
+  const handleError = (message) => {
+    flashStatus("error", "Error: " + message, setStatus);
     setValidTransaction(false);
+    return false;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const depositAmount = Number(getAmount());
-    console.log(`depositing ${depositAmount}`);
-    if (depositAmount <= 0) {
-      setValidTransaction(false);
-      return false;
+    const amount = Number(getAmount());
+    console.log(`depositing ${amount}`);
+    if (isDepositValid(amount)) {
+      handleSuccess(amount);
+    } else {
+      handleError("Please enter a valid amount to deposit.");
     }
-    user.balance = user.balance + depositAmount;
-    setBalance(user.balance);
-    resetAmount();
   };
 
   const handleChange = (event) => {
     event.preventDefault();
-    const depositAmount = Number(getAmount());
-    setValidTransaction(depositAmount > 0);
+    const amount = Number(getAmount());
+    if (isDepositValid(amount)) {
+      setValidTransaction(true);
+    } else {
+      handleError("Please enter a valid amount to deposit.");
+    }
   };
 
   return (

@@ -2,6 +2,25 @@ const Route = ReactRouterDOM.Route;
 const Link = ReactRouterDOM.Link;
 const HashRouter = ReactRouterDOM.HashRouter;
 const UserContext = React.createContext(null);
+const EMPTY_STATUS = { type: "", message: "" };
+
+// helpers
+
+const getAmount = () => {
+  return document.getElementById("number-input").value;
+};
+
+const setAmount = (amount) => {
+  document.getElementById("number-input").value = amount;
+};
+
+const flashStatus = (type, message, setStatus) => {
+  setStatus({ type, message });
+  setTimeout(() => setStatus(EMPTY_STATUS), 3000);
+  return false;
+};
+
+// components
 
 function Card(props) {
   function classes() {
@@ -17,7 +36,17 @@ function Card(props) {
         {props.title && <h5 className="card-title">{props.title}</h5>}
         {props.text && <p className="card-text">{props.text}</p>}
         {props.body}
-        {props.status && <div id="createStatus">{props.status}</div>}
+        {props.status && (
+          <div
+            className={`${
+              props.status.type === "success"
+                ? "success-message"
+                : "error-message"
+            }`}
+          >
+            {props.status.message}
+          </div>
+        )}
       </div>
     </div>
   );

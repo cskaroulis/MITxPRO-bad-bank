@@ -3,6 +3,11 @@
   --white-space-px: 20px;
 }
 
+h1 {
+  text-transform: uppercase;
+  margin: var(--white-space-px);
+}
+
 .my-active {
   border-radius: 10px;
   color: white !important;
@@ -63,3 +68,20 @@
 
 input::-webkit-outer-spin-button, 
 input::-webkit-inner-spin-button { margin-left: 10px; } 
+
+.success-message {
+  text-align: center;
+  color: green;
+}
+
+.error-message {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
+
+.table {
+  width: 600px;
+  margin: 0 auto;
+  margin-top: var(--white-space-px);
+}

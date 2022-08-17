@@ -1,50 +1,58 @@
 function Withdraw() {
   const ctx = React.useContext(UserContext);
+  // for now, assume we are working on the first user's account
   const user = ctx.users[0];
-  const [status, setStatus] = React.useState("");
+  const [status, setStatus] = React.useState(EMPTY_STATUS);
   const [balance, setBalance] = React.useState(user.balance);
   const [validTransaction, setValidTransaction] = React.useState(false);
 
-  const validate = (field, label) => {
-    if (!field) {
-      setStatus("Error: " + label);
-      setTimeout(() => setStatus(""), 3000);
-      return false;
-    }
-    return true;
+  const isWithdrawalValid = (amount) => {
+    return amount > 0 && amount <= balance;
   };
 
-  const getAmount = () => {
-    return document.getElementById("number-input").value;
-  };
-
-  const setAmount = (amount) => {
-    document.getElementById("number-input").value = amount;
-  };
-
-  const resetAmount = () => {
-    setAmount(0);
+  const resetForm = () => {
+    setAmount("");
     setValidTransaction(false);
+  };
+
+  const updateBalance = (amount) => {
+    user.balance = user.balance - amount;
+    setBalance(user.balance);
+  };
+
+  const handleSuccess = (amount) => {
+    updateBalance(amount);
+    flashStatus("success", "Success: Withdrew $ " + amount, setStatus);
+    resetForm();
+    return false;
+  };
+
+  const handleError = (message) => {
+    flashStatus("error", "Error: " + message, setStatus);
+    setValidTransaction(false);
+    return false;
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const withdrawAmount = Number(getAmount());
-    console.log(`withdraw ${withdrawAmount}`);
-    if (withdrawAmount <= 0) {
-      setValidTransaction(false);
-      return false;
+    const amount = Number(getAmount());
+    console.log(`withdraw ${amount}`);
+    if (isWithdrawalValid(amount)) {
+      handleSuccess(amount);
+    } else {
+      handleError("Please enter a valid amount to withdraw.");
     }
-    user.balance = user.balance - withdrawAmount;
-    setBalance(user.balance);
-    resetAmount();
   };
 
   const handleChange = (event) => {
     event.preventDefault();
-    const withdrawAmount = Number(getAmount());
-    console.log(`withdraw ${withdrawAmount}`);
-    setValidTransaction(withdrawAmount > 0 && withdrawAmount <= balance);
+    const amount = Number(getAmount());
+    console.log(`withdraw ${amount}`);
+    if (isWithdrawalValid(amount)) {
+      setValidTransaction(true);
+    } else {
+      handleError("Please enter a valid amount to withdraw.");
+    }
   };
 
   return (
