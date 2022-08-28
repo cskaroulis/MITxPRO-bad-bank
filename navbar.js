@@ -1,11 +1,9 @@
-function NavBar({ location }) {
-  const [activePage, setActivePage] = React.useState();
+function NavBar() {
+  const [currentPage, setCurrentPage] = React.useState();
 
-  const applyActiveClass = (pageId) => {
-    return activePage === pageId ? "my-active" : "";
+  const currentPageClass = (pageId) => {
+    return currentPage === pageId ? "current-page-link" : "";
   };
-
-  console.log("location", location);
 
   return (
     <>
@@ -13,7 +11,7 @@ function NavBar({ location }) {
         <a
           className="navbar-brand"
           href="#"
-          onClick={() => setActivePage("home")}
+          onClick={() => setCurrentPage("home")}
         >
           BadBank
         </a>
@@ -32,9 +30,10 @@ function NavBar({ location }) {
           <ul className="navbar-nav">
             <li className="nav-item">
               <a
-                className={`nav-link ${applyActiveClass("create-account")}`}
-                href="#/CreateAccount/"
-                onClick={() => setActivePage("create-account")}
+                className={`nav-link ${currentPageClass("create-account")} tip`}
+                href="#/create-account/"
+                onClick={() => setCurrentPage("create-account")}
+                id="tip-create-account"
               >
                 Create Account
               </a>
@@ -42,18 +41,20 @@ function NavBar({ location }) {
 
             <li className="nav-item">
               <a
-                className={`nav-link ${applyActiveClass("deposit")}`}
+                className={`nav-link ${currentPageClass("deposit")} tip`}
                 href="#/deposit/"
-                onClick={() => setActivePage("deposit")}
+                onClick={() => setCurrentPage("deposit")}
+                id="tip-deposit"
               >
                 Deposit
               </a>
             </li>
             <li className="nav-item">
               <a
-                className={`nav-link ${applyActiveClass("withdraw")}`}
+                className={`nav-link ${currentPageClass("withdraw")} tip`}
                 href="#/withdraw/"
-                onClick={() => setActivePage("withdraw")}
+                onClick={() => setCurrentPage("withdraw")}
+                id="tip-withdraw"
               >
                 Withdraw
               </a>
@@ -61,11 +62,12 @@ function NavBar({ location }) {
 
             <li className="nav-item">
               <a
-                className={`nav-link ${applyActiveClass("all-data")}`}
-                href="#/alldata/"
-                onClick={() => setActivePage("all-data")}
+                className={`nav-link ${currentPageClass("all-data")} tip`}
+                href="#/all-data/"
+                onClick={() => setCurrentPage("all-data")}
+                id="tip-all-data"
               >
-                AllData
+                All Data
               </a>
             </li>
           </ul>

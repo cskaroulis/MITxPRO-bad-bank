@@ -1,7 +1,7 @@
 function AllData() {
   const ctx = React.useContext(UserContext);
 
-  const User = ({ name, email, password }) => (
+  const User = ({ data: { email, name, password } }) => (
     <tr>
       <td>{email}</td>
       <td>{name}</td>
@@ -22,13 +22,7 @@ function AllData() {
         </thead>
         <tbody>
           {React.Children.toArray(
-            ctx.users.map((user) => (
-              <User
-                name={user.name}
-                email={user.email}
-                password={user.password}
-              />
-            ))
+            ctx.users.map((user) => <User data={user} />)
           )}
         </tbody>
       </table>

@@ -6,6 +6,12 @@ function Withdraw() {
   const [balance, setBalance] = React.useState(user.balance);
   const [validTransaction, setValidTransaction] = React.useState(false);
 
+  const flashStatus = (type, message) => {
+    setStatus({ type, message });
+    setTimeout(() => setStatus(EMPTY_STATUS), 3000);
+    return false;
+  };
+
   const isWithdrawalValid = (amount) => {
     return amount > 0 && amount <= balance;
   };
@@ -36,7 +42,6 @@ function Withdraw() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const amount = Number(getAmount());
-    console.log(`withdraw ${amount}`);
     if (isWithdrawalValid(amount)) {
       handleSuccess(amount);
     } else {
@@ -47,7 +52,6 @@ function Withdraw() {
   const handleChange = (event) => {
     event.preventDefault();
     const amount = Number(getAmount());
-    console.log(`withdraw ${amount}`);
     if (isWithdrawalValid(amount)) {
       setValidTransaction(true);
     } else {

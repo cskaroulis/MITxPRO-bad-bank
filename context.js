@@ -2,9 +2,8 @@ const Route = ReactRouterDOM.Route;
 const Link = ReactRouterDOM.Link;
 const HashRouter = ReactRouterDOM.HashRouter;
 const UserContext = React.createContext(null);
-const EMPTY_STATUS = { type: "", message: "" };
 
-// helpers
+const EMPTY_STATUS = { type: "", message: "" };
 
 const getAmount = () => {
   return document.getElementById("number-input").value;
@@ -12,12 +11,6 @@ const getAmount = () => {
 
 const setAmount = (amount) => {
   document.getElementById("number-input").value = amount;
-};
-
-const flashStatus = (type, message, setStatus) => {
-  setStatus({ type, message });
-  setTimeout(() => setStatus(EMPTY_STATUS), 3000);
-  return false;
 };
 
 // components

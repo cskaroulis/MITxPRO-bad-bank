@@ -6,6 +6,12 @@ function Deposit() {
   const [balance, setBalance] = React.useState(user.balance);
   const [validTransaction, setValidTransaction] = React.useState(false);
 
+  const flashStatus = (type, message) => {
+    setStatus({ type, message });
+    setTimeout(() => setStatus(EMPTY_STATUS), 3000);
+    return false;
+  };
+
   const isDepositValid = (amount) => {
     return amount > 0;
   };
@@ -22,13 +28,13 @@ function Deposit() {
 
   const handleSuccess = (amount) => {
     updateBalance(amount);
-    flashStatus("success", "Success: Deposited $ " + amount, setStatus);
+    flashStatus("success", "Success: Deposited $ " + amount);
     resetForm();
     return true;
   };
 
   const handleError = (message) => {
-    flashStatus("error", "Error: " + message, setStatus);
+    flashStatus("error", "Error: " + message);
     setValidTransaction(false);
     return false;
   };
@@ -36,7 +42,6 @@ function Deposit() {
   const handleSubmit = (event) => {
     event.preventDefault();
     const amount = Number(getAmount());
-    console.log(`depositing ${amount}`);
     if (isDepositValid(amount)) {
       handleSuccess(amount);
     } else {

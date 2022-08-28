@@ -8,11 +8,23 @@ h1 {
   margin: var(--white-space-px);
 }
 
-.my-active {
+.current-page-link {
   border-radius: 10px;
   color: white !important;
   background-color: var(--border-color);
 }
+
+.success-message {
+  text-align: center;
+  color: green;
+}
+
+.error-message {
+  text-align: center;
+  font-weight: bold;
+  color: red;
+}
+
 
 .navbar {
   border: 1px solid var(--border-color);
@@ -69,19 +81,36 @@ h1 {
 input::-webkit-outer-spin-button, 
 input::-webkit-inner-spin-button { margin-left: 10px; } 
 
-.success-message {
-  text-align: center;
-  color: green;
-}
-
-.error-message {
-  text-align: center;
-  font-weight: bold;
-  color: red;
-}
-
 .table {
   width: 600px;
   margin: 0 auto;
   margin-top: var(--white-space-px);
+}
+
+/* a#tip-create-account { */
+.tip {  
+  position: relative;
+}
+.tip:hover::after {
+  position: absolute;
+  top: 3em;
+  right: 0;
+  min-width: 200px;
+  border: 1px #808080 solid;
+  padding: 8px;
+  color: black;
+  background-color: var(--light);
+  z-index: 1;
+}
+a#tip-create-account:hover::after {
+  content: "Create an account to manage your money.";
+}
+a#tip-deposit:hover::after {
+  content: "Deposit money to your account";
+}
+a#tip-withdraw:hover::after {
+  content: "Withdraw money from your account";
+}
+a#tip-all-data:hover::after {
+  content: "View a list of available accounts";
 }
